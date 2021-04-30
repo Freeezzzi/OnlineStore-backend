@@ -32,6 +32,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("com.j256.ormlite:ormlite-core:5.3")
     implementation("com.j256.ormlite:ormlite-jdbc:5.3")
+    implementation("com.google.cloud.sql:mysql-socket-factory-connector-j-8:1.2.2")
+    implementation("mysql","mysql-connector-java","8.0.24")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions {

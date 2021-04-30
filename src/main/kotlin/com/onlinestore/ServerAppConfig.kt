@@ -1,9 +1,10 @@
 package com.onlinestore
 
-import com.google.api.client.util.Value
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.jdbc.JdbcConnectionSource
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource
+import com.j256.ormlite.jdbc.JdbcSingleConnectionSource
 import com.j256.ormlite.table.TableUtils
 import com.onlinestore.db.dao.AuthInfoDao
 import com.onlinestore.db.dao.CategoriesDao
@@ -19,12 +20,21 @@ import com.onlinestore.services.CategoryService
 import com.onlinestore.services.LoginService
 import com.onlinestore.services.ProductsService
 import com.onlinestore.services.RegisterService
+import java.sql.*
 import org.springframework.context.annotation.PropertySource
+import java.util.*
 
 @Configuration
 class ServerAppConfig {
     //@Value(value = "\${sqlite.backend.url}")
-    var url: String = "jdbc:sqlite:/app/onlinestore_backend_db"
+    var url: String = "jdbc:mysql:///appStorage?cloudSqlInstance=onlinestore-346ba:europe-west1:backend-db&" +
+            "socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=root&password=BackendPassword"
+    private val JDBC_URL = "jdbc:mysql:///%s"
+    private val DB_NAME = "appStorage"
+    private val DB_USER = "root"
+    private val DB_PWD = "BackendPassword"
+    private val CONNECTION_NAME = "onlinestore-346ba:europe-west1:backend-db"
+
 
     @Bean
     fun usersDao(): UsersDao =
@@ -82,6 +92,7 @@ class ServerAppConfig {
 
     private fun <T, I> createDao(clazz: Class<T>): Dao<T, I> {
         val connectionSource = JdbcConnectionSource(url)
+        connectionSource.initialize()
         val orm: Dao<T, I> = DaoManager.createDao(
             connectionSource,
             clazz
