@@ -5,5 +5,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 rootProject.name = "OnlineStore-backend-ktor"
 
