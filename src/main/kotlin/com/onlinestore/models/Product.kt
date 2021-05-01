@@ -24,7 +24,9 @@ data class Product(
     @DatabaseField
     val brand : String = "",
     @DatabaseField
-    var onSale: Boolean = false
+    var onSale: Boolean = false,
+    @DatabaseField
+    var weight: String = ""
 ){
     constructor() : this(title = "",price = 0,category = Category(),amount = 0, bought = 0)
 

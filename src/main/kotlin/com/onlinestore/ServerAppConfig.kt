@@ -93,8 +93,6 @@ class ServerAppConfig {
             clazz
         )
         //TableUtils.createTableIfNotExists(connectionSource, clazz)
-        val logger = LoggerFactory.getLogger(ServerAppConfig::class.java)
-        logger.info(clazz.simpleName +": "+ orm.countOf())
         return orm
     }
 }

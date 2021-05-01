@@ -12,7 +12,8 @@ data class ProductsDTO(
     val bought : Long,
     val country : String,
     val brand: String,
-    val onSale: Boolean
+    val onSale: Boolean,
+    val weight: String
 )
 
 fun fromProduct(product: Product) = ProductsDTO(
@@ -25,5 +26,6 @@ fun fromProduct(product: Product) = ProductsDTO(
     bought = product.bought,
     country = product.country,
     brand = product.brand,
-    onSale = product.onSale
+    onSale = product.onSale,
+    weight = product.weight
 )
