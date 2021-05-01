@@ -3,9 +3,7 @@ package com.onlinestore
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.jdbc.JdbcConnectionSource
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource
-import com.j256.ormlite.jdbc.JdbcSingleConnectionSource
-import com.j256.ormlite.table.TableUtils
+import com.j256.ormlite.logger.LoggerFactory
 import com.onlinestore.db.dao.AuthInfoDao
 import com.onlinestore.db.dao.CategoriesDao
 import com.onlinestore.db.dao.ProductsDao
@@ -14,15 +12,12 @@ import com.onlinestore.models.AuthInfo
 import com.onlinestore.models.Category
 import com.onlinestore.models.Product
 import com.onlinestore.models.User
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import com.onlinestore.services.CategoryService
 import com.onlinestore.services.LoginService
 import com.onlinestore.services.ProductsService
 import com.onlinestore.services.RegisterService
-import java.sql.*
-import org.springframework.context.annotation.PropertySource
-import java.util.*
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 
 @Configuration
 class ServerAppConfig {
@@ -97,7 +92,9 @@ class ServerAppConfig {
             connectionSource,
             clazz
         )
-        TableUtils.createTableIfNotExists(connectionSource, clazz)
+        //TableUtils.createTableIfNotExists(connectionSource, clazz)
+        val logger = LoggerFactory.getLogger(ServerAppConfig::class.java)
+        logger.info(clazz.simpleName +": "+ orm.countOf())
         return orm
     }
 }
