@@ -29,13 +29,27 @@ class ProductsDao(
         it
     }
 
-    fun buyProduct(productId: Long) : Boolean{
+    fun buyProduct(productId: Long, count: Int) : Boolean{
         val value = delegateDao.queryForId(productId)
-        if (value.amount <= 0){
+        if (value.amount < count){
             return false
         }
-        value.amount--
-        value.bought++
+        value.amount -= count
+        value.bought += count
         return delegateDao.update(value) == 1
+    }
+
+    fun checkIsCanBeBought(productId: Long, count: Int) : Boolean{
+        val value = delegateDao.queryForId(productId)
+        if (value.amount < count){
+            return false
+        }
+        return true
+    }
+
+    fun findById(productId: Long): Product{
+        val product = delegateDao.queryForId(productId)
+        categoriesDao.refresh(product.category)
+        return product
     }
 }

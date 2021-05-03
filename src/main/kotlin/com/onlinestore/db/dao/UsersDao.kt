@@ -23,4 +23,15 @@ class UsersDao(
     fun save(user: User) {
         delegateDAO.create(user)
     }
+
+    fun buyProducts(userId:Long, totalCost:Int){
+        val user = delegateDAO.queryForEq("id", userId).first()
+        user.balance -= totalCost
+        delegateDAO.update(user)
+    }
+
+    fun isCanBuy(userId:Long, totalCost: Int):Boolean{
+        val user = delegateDAO.queryForEq("id", userId).first()
+        return user.balance >= totalCost
+    }
 }

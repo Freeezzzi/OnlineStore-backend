@@ -1,5 +1,6 @@
 package com.onlinestore.api.models
 
+import com.onlinestore.models.Category
 import com.onlinestore.models.Product
 
 data class ProductsDTO(
@@ -14,7 +15,22 @@ data class ProductsDTO(
     val brand: String,
     val onSale: Boolean,
     val weight: String
-)
+){
+    fun toProduct():Product =
+        Product(
+            id = id,
+            title = title,
+            category =  Category(),
+            price = price,
+            amount = amount,
+            imageUrl = imageUrl,
+            bought = bought,
+            country = country,
+            brand = brand,
+            onSale = onSale,
+            weight = weight
+        )
+}
 
 fun fromProduct(product: Product) = ProductsDTO(
     id = product.id!!,

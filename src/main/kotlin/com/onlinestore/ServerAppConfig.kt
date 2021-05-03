@@ -4,18 +4,10 @@ import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.logger.LoggerFactory
-import com.onlinestore.db.dao.AuthInfoDao
-import com.onlinestore.db.dao.CategoriesDao
-import com.onlinestore.db.dao.ProductsDao
-import com.onlinestore.db.dao.UsersDao
-import com.onlinestore.models.AuthInfo
-import com.onlinestore.models.Category
-import com.onlinestore.models.Product
-import com.onlinestore.models.User
-import com.onlinestore.services.CategoryService
-import com.onlinestore.services.LoginService
-import com.onlinestore.services.ProductsService
-import com.onlinestore.services.RegisterService
+import com.j256.ormlite.table.TableUtils
+import com.onlinestore.db.dao.*
+import com.onlinestore.models.*
+import com.onlinestore.services.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -55,6 +47,15 @@ class ServerAppConfig {
         )
 
     @Bean
+    fun ordersDao():OrdersDao =
+        OrdersDao(
+            delegateDAO = createDao(clazz = Order::class.java),
+            usersDao = createDao(clazz = User::class.java),
+            productsDao = createDao(clazz = Product::class.java),
+            categoryDao = createDao(clazz = Category::class.java)
+        )
+
+    @Bean
     fun loginService(
         userDAO: UsersDao,
         authInfoDao: AuthInfoDao
@@ -84,6 +85,18 @@ class ServerAppConfig {
             productsDao = productsDAO
         )
 
+    @Bean
+    fun ordersService(
+        ordersDao: OrdersDao,
+        usersDao: UsersDao,
+        productsDAO: ProductsDao
+    ): OrdersService =
+        OrdersService(
+            ordersDao = ordersDao,
+            usersDao = usersDao,
+            productsDao = productsDAO
+        )
+
 
     private fun <T, I> createDao(clazz: Class<T>): Dao<T, I> {
         val connectionSource = JdbcConnectionSource(url)
@@ -92,7 +105,7 @@ class ServerAppConfig {
             connectionSource,
             clazz
         )
-        //TableUtils.createTableIfNotExists(connectionSource, clazz)
+        TableUtils.createTableIfNotExists(connectionSource, clazz)
         return orm
     }
 }

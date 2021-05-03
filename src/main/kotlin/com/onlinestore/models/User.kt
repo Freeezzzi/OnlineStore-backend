@@ -17,13 +17,14 @@ data class User(
     @DatabaseField
     val email: String,
     @DatabaseField
-    val balance:Long
+    var balance:Long
 ){
     constructor() : this(id = 0, email = "", pwd = "", name = "", phone = "", balance = 0)
 
 }
 
 fun User.toUserProfileDTO() : UserProfileDTO = UserProfileDTO(
+    id = id,
     email = email,
     name = name,
     phone = phone,

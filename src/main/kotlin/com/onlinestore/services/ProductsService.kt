@@ -11,7 +11,9 @@ class ProductsService(
 
     fun getPopular() = productsDao.getPopular().subList(0,15)
 
-    fun buyProduct(productId:Long)= productsDao.buyProduct(productId)
+    fun buyProduct(productId:Long)= productsDao.buyProduct(productId,1)
 
     fun getOnSale() = productsDao.getOnSale()
+
+    fun findById(productId:Long) = productsDao.findById(productId)
 }

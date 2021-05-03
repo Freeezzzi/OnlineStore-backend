@@ -69,4 +69,20 @@ class ProductsController(
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED)
         }
     }
+
+    @GetMapping("by_ids")
+    fun getByIds(
+        @RequestHeader(TOKEN_HEADER, required = false) token: String?,
+        @RequestParam("productIds") productIds : List<Long>
+    ): List<ProductsDTO>{
+        if (token != null && loginService.getAuthInfo(token) != null) {
+            val list = ArrayList<ProductsDTO>(productIds.size)
+            productIds.forEachIndexed() { i, it ->
+                list.set(i,fromProduct(productsService.findById(it)))
+            }
+            return list
+        } else {
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED)
+        }
+    }
 }
