@@ -6,7 +6,7 @@ import com.onlinestore.models.Order
 data class OrderDTO(
     val id:Long,
     val user_id:Long,
-    val status:String,
+    val status:Int,
     val productsIDs: List<Long>,
     val productsCount : List<Int>,
     val address: String,

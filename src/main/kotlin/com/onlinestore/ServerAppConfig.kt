@@ -97,6 +97,13 @@ class ServerAppConfig {
             productsDao = productsDAO
         )
 
+    @Bean
+    fun usersService(
+        usersDao: UsersDao
+    ): UsersService = UsersService(
+        usersDao = usersDao
+    )
+
 
     private fun <T, I> createDao(clazz: Class<T>): Dao<T, I> {
         val connectionSource = JdbcConnectionSource(url)

@@ -13,7 +13,7 @@ data class Order(
     @DatabaseField
     val user_id:Long = 0,
     @DatabaseField
-    val status:String = "",
+    val status:Int = -1,
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     val productsIds:ArrayList<Long> = ArrayList(),
     @DatabaseField(dataType = DataType.SERIALIZABLE)
