@@ -18,7 +18,7 @@ class ProductsController(
 ) {
     @GetMapping("popular")
     fun getPopular(
-        @RequestHeader(TOKEN_HEADER, required = false) token: String?
+        @RequestHeader(TOKEN_HEADER) token: String?
     ): List<ProductsDTO> {
         if (token != null && loginService.getAuthInfo(token) != null) {
             return productsService.getPopular()
@@ -30,7 +30,7 @@ class ProductsController(
 
     @GetMapping("by-category")
     fun getByCategory(
-        @RequestHeader(TOKEN_HEADER, required = false) token: String?,
+        @RequestHeader(TOKEN_HEADER) token: String?,
         @RequestParam("categoryId") categoryId: Long
     ) : List<ProductsDTO> {
         if (token != null && loginService.getAuthInfo(token) != null) {
@@ -43,7 +43,7 @@ class ProductsController(
 
     @GetMapping("on-sale")
     fun getOnSale(
-        @RequestHeader(TOKEN_HEADER, required = false) token: String?
+        @RequestHeader(TOKEN_HEADER) token: String?
     ) : List<ProductsDTO> {
         if (token != null && loginService.getAuthInfo(token) != null) {
             return productsService.getOnSale()
@@ -55,7 +55,7 @@ class ProductsController(
 
     @PostMapping("buy")
     fun buyProduct(
-        @RequestHeader(TOKEN_HEADER, required = false) token: String?,
+        @RequestHeader(TOKEN_HEADER) token: String?,
         @RequestParam("productId") productId : Long
     ){
         if (token != null && loginService.getAuthInfo(token) != null) {
@@ -72,13 +72,13 @@ class ProductsController(
 
     @GetMapping("by_ids")
     fun getByIds(
-        @RequestHeader(TOKEN_HEADER, required = false) token: String?,
+        @RequestHeader(TOKEN_HEADER) token: String?,
         @RequestParam("productIds") productIds : List<Long>
     ): List<ProductsDTO>{
         if (token != null && loginService.getAuthInfo(token) != null) {
-            val list = ArrayList<ProductsDTO>(productIds.size)
-            productIds.forEachIndexed() { i, it ->
-                list.set(i,fromProduct(productsService.findById(it)))
+            val list = ArrayList<ProductsDTO>()
+            productIds.forEach {
+                list.add(fromProduct(productsService.findById(it)))
             }
             return list
         } else {

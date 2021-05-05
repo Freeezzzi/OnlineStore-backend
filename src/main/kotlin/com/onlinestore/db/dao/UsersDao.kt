@@ -40,7 +40,7 @@ class UsersDao(
         val newUser = User(
             id = dbUser.id,
             pwd = user.pwd,
-            name = user.pwd,
+            name = user.name,
             phone = user.phone,
             email = user.email,
             balance = dbUser.balance

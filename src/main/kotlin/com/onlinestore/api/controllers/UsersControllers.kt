@@ -32,7 +32,7 @@ class UsersController(
 
     @PostMapping("update")
     fun updateUser(
-        @RequestHeader(TOKEN_HEADER, required = false) token: String?,
+        @RequestHeader(TOKEN_HEADER) token: String?,
         @RequestBody userProfileDTO: UserProfileDTO
     ): Boolean{
         if (token != null && loginService.getAuthInfo(token) != null) {

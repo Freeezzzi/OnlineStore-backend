@@ -20,7 +20,7 @@ class CategoriesController(
 ) {
     @GetMapping("all")
     fun getAll(
-        @RequestHeader(UsersController.TOKEN_HEADER, required = false) token: String?
+        @RequestHeader(UsersController.TOKEN_HEADER) token: String?
     ) : List<CategoryDTO>{
         if (token != null && loginService.getAuthInfo(token) != null){
             return categoryService.getAll()

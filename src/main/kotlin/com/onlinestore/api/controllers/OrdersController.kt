@@ -17,7 +17,7 @@ class OrdersController(
 ) {
     @PostMapping("place")
     fun placeOrder(
-        @RequestHeader(UsersController.TOKEN_HEADER, required = false) token: String?,
+        @RequestHeader(UsersController.TOKEN_HEADER) token: String?,
         @RequestBody orderDTO: OrderDTO
     ) : Boolean {
         if (token != null && loginService.getAuthInfo(token) != null) {
@@ -29,7 +29,7 @@ class OrdersController(
 
     @GetMapping("by_id")
     fun findForUser(
-        @RequestHeader(UsersController.TOKEN_HEADER, required = false) token: String?,
+        @RequestHeader(UsersController.TOKEN_HEADER) token: String?,
         @RequestParam("user_id") userId:Long
     ): List<OrderDTO>{
         if (token != null && loginService.getAuthInfo(token) != null) {
