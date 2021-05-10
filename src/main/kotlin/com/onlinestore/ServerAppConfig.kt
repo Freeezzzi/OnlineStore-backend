@@ -56,6 +56,12 @@ class ServerAppConfig {
         )
 
     @Bean
+    fun recipesDao():RecipesDao =
+        RecipesDao(
+            recipesDao = createDao(clazz = Recipe::class.java)
+        )
+
+    @Bean
     fun loginService(
         userDAO: UsersDao,
         authInfoDao: AuthInfoDao
@@ -102,6 +108,13 @@ class ServerAppConfig {
         usersDao: UsersDao
     ): UsersService = UsersService(
         usersDao = usersDao
+    )
+
+    @Bean
+    fun recipesService(
+        recipesDao: RecipesDao
+    ): RecipesService = RecipesService(
+        recipesDao = recipesDao
     )
 
 
