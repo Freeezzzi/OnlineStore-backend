@@ -21,7 +21,7 @@ data class Recipe(
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     val ingredientCount:ArrayList<String> = ArrayList(),
     @DatabaseField(dataType = DataType.SERIALIZABLE)
-    val ingredientIds:ArrayList<String> = ArrayList(),
+    val ingredientIds:ArrayList<Long> = ArrayList(),
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     val stepsInfo:ArrayList<String> = ArrayList(),
     @DatabaseField(dataType = DataType.SERIALIZABLE)

@@ -12,7 +12,7 @@ data class RecipeDTO(
     val imageUrl: String = "",
     val ingredientNames:List<String> = ArrayList(),
     val ingredientCount:List<String> = ArrayList(),
-    val ingredientIds:List<String> = ArrayList(),
+    val ingredientIds:List<Long> = ArrayList(),
     val stepsInfo:List<String> = ArrayList(),
     val stepsImages:List<String> = ArrayList(),
 )
@@ -29,4 +29,18 @@ fun toRecipeDTO(recipe: Recipe):RecipeDTO =
         ingredientIds = recipe.ingredientIds,
         stepsInfo = recipe.stepsInfo,
         stepsImages = recipe.stepsImages
+    )
+
+fun toRecipe(recipeDTO: RecipeDTO):Recipe =
+    Recipe(
+        id = recipeDTO.id,
+        name = recipeDTO.name,
+        difficulty = recipeDTO.difficulty,
+        cookingTime = recipeDTO.cookingTime,
+        imageUrl = recipeDTO.imageUrl,
+        ingredientNames = recipeDTO.ingredientNames as ArrayList<String>,
+        ingredientCount = recipeDTO.ingredientCount as ArrayList<String>,
+        ingredientIds = recipeDTO.ingredientIds as ArrayList<Long>,
+        stepsInfo = recipeDTO.stepsInfo as ArrayList<String>,
+        stepsImages = recipeDTO.stepsImages as ArrayList<String>
     )

@@ -7,4 +7,8 @@ class RecipesDao(
     private val recipesDao: Dao<Recipe, Long>
 ) {
     fun getAll() = recipesDao.queryForAll()
+
+    fun insertNew(recipe: Recipe):Boolean {
+        return recipesDao.create(recipe) == 1
+    }
 }

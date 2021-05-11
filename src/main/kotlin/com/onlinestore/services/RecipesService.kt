@@ -8,4 +8,6 @@ class RecipesService(
     @Autowired val recipesDao: RecipesDao
 ) {
     fun getAll():List<Recipe> = recipesDao.getAll()
+
+    fun insertNewData(recipe:Recipe) = recipesDao.insertNew(recipe)
 }
