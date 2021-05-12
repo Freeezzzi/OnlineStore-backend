@@ -15,7 +15,7 @@ class RecipesController(
     @Autowired val loginService: LoginService
 ) {
     @GetMapping("all")
-    fun findForUser(
+    fun getAll(
         @RequestHeader(UsersController.TOKEN_HEADER) token: String?
     ): List<RecipeDTO>{
         if (token != null && loginService.getAuthInfo(token) != null) {
